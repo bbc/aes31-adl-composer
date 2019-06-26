@@ -1,0 +1,26 @@
+{
+  "name": "@bbc/aes31-adl-composer",
+  "version": "1.0.0",
+  "description": "A node module to convert a json sequence into an AES31 ADL (audio decision list) compatible with SADiE audio editing software.",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "jest",
+    "lint": "npx eslint --ignore-path .eslintignore .",
+    "lint:fix": "eslint --ignore-path .eslintignore . --fix"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "node-timecodes": "^2.5.0",
+    "uuid": "^3.3.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.5",
+    "@babel/node": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
+    "babel-eslint": "^10.0.2",
+    "eslint": "^5.16.0",
+    "jest": "^24.8.0"
+  }
+}
