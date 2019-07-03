@@ -6,7 +6,9 @@
   "scripts": {
     "test": "jest",
     "lint": "npx eslint --ignore-path .eslintignore .",
-    "lint:fix": "eslint --ignore-path .eslintignore . --fix"
+    "lint:fix": "eslint --ignore-path .eslintignore . --fix",
+    "publish:public": "npm publish --access public",
+    "publish:dry:run": "npm publish --dry-run"
   },
   "author": "",
   "license": "ISC",

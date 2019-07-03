@@ -14,10 +14,18 @@ _How to build and run the code/app_ -->
 
 cd, npm install
 
-## Usage
+## Usage - development 
 <!-- TBC publish to npm -->
 <!-- requrie module and -->
 see example usage for example
+
+## Usage - production
+
+```
+npm install @bbc/aes31-adl-composer
+```
+
+require or import in your code and see example usage for more details
 
 ## System Architecture
 <!-- _High level overview of system architecture_ -->
@@ -55,4 +63,8 @@ _TBC_
 
 <!-- TBC onto NPM -->
 <!-- npm run publish  -->
-_TBC_
+
+To publish to npm 
+```
+npm run publish:public
+```
