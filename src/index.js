@@ -2,6 +2,7 @@
 * a module to create ADL(Audio Decision list) AES31 for SADIE - audio editing software 
 */
 const timecodesFromSeconds = require('node-timecodes').fromSeconds;
+const secondsFromTimecodes = require('node-timecodes').toSeconds;
 const uuid1 = require('uuid/v1');
 
 // Temporary helper function for python to js conversion
@@ -29,11 +30,13 @@ const secsToTCF = (seconds, frameRate) => {
 	return timecodesFromSeconds(seconds, { frameRate });
 };
 
+const tcToSec = (tc) =>{
+	return secondsFromTimecodes(tc);
+};
+
 const generateEDL = ({
 	projectOriginator,
 	edits,
-	filePaths,
-	// fileNames,
 	sampleRate,
 	frameRate,
 	projectName
@@ -41,7 +44,7 @@ const generateEDL = ({
 
 	const generatorName = projectOriginator ? projectOriginator : 'Default Unspecified Project Originator';
 	const  generatorVersion='00.01';
-	let  projectTime=secsToTCF('00:00:00:00', frameRate);
+	let  projectTime=tcToSec('00:00:00:00', frameRate);
 	let   edl='';
 	const verAdlVersion = '01.02';
 	const adlId = '1234';
@@ -89,17 +92,14 @@ const generateEDL = ({
      * file locations
      * @todo: is this needed? I don't fully understand what this does
      */ 
-	// edl+='<SOURCE_INDEX>\n';
-	// filePaths.forEach((filePath, i)=>{
-	//     const index = i+1;
-	//     edl+='\t(Index)\t'+str(index)+
-	//     // especially this line?
-	//     '\t(F)\t"URL:file://localhost/C:/Audio Files/'+fileNames[path]+'"\tBBCSPEECHEDITOR'+str(index)+'\t_\t_\t"_"\t"_"\n';
-	// });
-	// edl+='</SOURCE_INDEX>\n\n';
-
-	// >you could easily adapt it to client side if you don't package the audio files with it. 
-	// > It's just some XML-type thing.
+	edl+='<SOURCE_INDEX>\n';
+	edits.forEach((edit, i)=>{
+		const index = i+1;
+		edl+='\t(Index)\t'+str(index)+
+        // especially this line?
+        '\t(F)\t"URL:file://localhost/C:/Audio Files/'+ edit.clipName +'"\tBBCSPEECHEDITOR'+str(index)+'\t_\t_\t"_"\t"_"\n';
+	});
+	edl+='</SOURCE_INDEX>\n\n';
 
 	/**
      *  edits
@@ -108,18 +108,18 @@ const generateEDL = ({
 	// TODO: loop over edits
 	edits.forEach((edit, i)=>{
 		const index = i+1;
-		const srcIn=secsToTCF(edit['start'],frameRate);
-		const srcOut=secsToTCF(edit['end'],frameRate);
+		const srcIn=edit['start'];
+		const srcOut=edit['end'];
 		const srcLen=srcOut-srcIn;
-		const destIn=projectTime;
-		const destOut=projectTime+srcLen;
+		const destIn = projectTime;
+		const destOut = projectTime + srcLen;
 
 		edl+='\t(Entry)\t'+str(index)+'\t'+
-            '(Cut)\tI\t'+str(filePaths.indexOf(edit['path'])+1)+'\t'+
+            '(Cut)\tI\t'+str(edit.clipName)+'\t'+
             '1~2\t1~2\t'+
-            str(srcIn)+'/0000\t'+str(destIn)+'/0000\t'+str(destOut)+'/0000\t_'+
+            str(secsToTCF(srcIn, frameRate))+'/0000\t'+str(secsToTCF(destIn, frameRate) )+'/0000\t'+str(secsToTCF(destOut, frameRate))+'/0000\t_'+
             '\t(Rem) NAME "'+edit['label']+'"\n';
-		projectTime=destOut;
+		projectTime = destOut;
 	});
 
 	edl+= '</EVENT_LIST>\n\n';
@@ -131,5 +131,5 @@ const generateEDL = ({
 
 	return edl;
 };
-//////////////////////
+
 module.exports = generateEDL;
