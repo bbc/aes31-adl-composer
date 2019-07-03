@@ -87,7 +87,6 @@ const generateEDL = ({
         '\t(SEQ_DEST_START)\t'+str(projectTime)+'/0000\n'+
             '</SEQUENCE>\n\n';
 
-
 	/**
      * file locations
      * @todo: is this needed? I don't fully understand what this does

@@ -2,7 +2,7 @@
 
 <VERSION>
 	(ADL_ID)	1234
-	(ADL_UID)	3126cfb0-9791-11e9-a0a4-95a36a5dce11
+	(ADL_UID)	85d459f0-9d7d-11e9-a092-dbf78d6023f2
 	(VER_ADL_VERSION)	01.02
 	(VER_CREATOR)	"Digital Paper Edit"
 	(VER_CRTR)	00.01
@@ -11,7 +11,7 @@
 <PROJECT>
 	(PROJ_TITLE)	"Test edit 1"
 	(PROJ_ORIGINATOR)	"Digital Paper Edit"
-	(PROJ_CREATE_DATE)	2019-06-25T21:35:46.219Z
+	(PROJ_CREATE_DATE)	2019-07-03T10:30:05.327Z
 	(PROJ_NOTES)	"_"
 	(PROJ_CLIENT_DATA)	"test"
 </PROJECT>
@@ -21,12 +21,17 @@
 	(SEQ_FRAME_RATE)	25
 	(SEQ_ADL_LEVEL)	1
 	(SEQ_CLEAN)	FALSE
-	(SEQ_DEST_START)	00:00:00:00/0000
+	(SEQ_DEST_START)	0/0000
 </SEQUENCE>
 
+<SOURCE_INDEX>
+	(Index)	1	(F)	"URL:file://localhost/C:/Audio Files/filename1.wav"	BBCSPEECHEDITOR1	_	_	"_"	"_"
+	(Index)	2	(F)	"URL:file://localhost/C:/Audio Files/filename2.wav"	BBCSPEECHEDITOR2	_	_	"_"	"_"
+</SOURCE_INDEX>
+
 <EVENT_LIST>
-	(Entry)	1	(Cut)	I	1	1~2	1~2	00:05:00:00/0000	00:00:00:00/0000	00:00:00:00NaN/0000	_	(Rem) NAME "reel_name?"
-	(Entry)	2	(Cut)	I	2	1~2	1~2	00:05:00:00/0000	00:00:00:00NaN/0000	00:00:00:00NaNNaN/0000	_	(Rem) NAME "reel_name?"
+	(Entry)	1	(Cut)	I	filename1.wav	1~2	1~2	00:00:30:00/0000	00:00:00:00/0000	00:00:05:00/0000	_	(Rem) NAME "not sure what this is for?"
+	(Entry)	2	(Cut)	I	filename2.wav	1~2	1~2	00:00:36:00/0000	00:00:05:00/0000	00:00:06:00/0000	_	(Rem) NAME "not sure what this is for?"
 </EVENT_LIST>
 
 </ADL>

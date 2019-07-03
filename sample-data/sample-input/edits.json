@@ -1,14 +1,14 @@
 [
     {
-        "start": 300,
-        "end": 350,
-        "path": "/some/path/to/the/file/1",
-        "label": "reel_name?"
+        "start": 30,
+        "end": 35,
+        "clipName": "filename1.wav",
+        "label": "not sure what this is for?"
     },
     {
-        "start": 360,
-        "end": 370,
-        "path": "/some/path/to/the/file/2",
-        "label": "reel_name?"
+        "start": 36,
+        "end": 37,
+        "clipName": "filename2.wav",
+        "label": "not sure what this is for?"
     }
 ]
