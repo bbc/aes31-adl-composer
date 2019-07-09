@@ -44,7 +44,8 @@ const generateEDL = ({
 
 	const generatorName = projectOriginator ? projectOriginator : 'Default Unspecified Project Originator';
 	const  generatorVersion='00.01';
-	let  projectTime=tcToSec('00:00:00:00', frameRate);
+	let  projectTime= '00:00:00:00';
+	let projectTimeInSec = tcToSec(projectTime, frameRate);
 	let   edl='';
 	const verAdlVersion = '01.02';
 	const adlId = '1234';
@@ -111,15 +112,15 @@ const generateEDL = ({
 		const srcIn=edit['start'];
 		const srcOut=edit['end'];
 		const srcLen=srcOut-srcIn;
-		const destIn = projectTime;
-		const destOut = projectTime + srcLen;
+		const destIn = projectTimeInSec;
+		const destOut = projectTimeInSec + srcLen;
 
 		edl+='\t(Entry)\t'+str(index)+'\t'+
             '(Cut)\tI\t'+str(edit.clipName)+'\t'+
             '1~2\t1~2\t'+
             str(secsToTCF(srcIn, frameRate))+'/0000\t'+str(secsToTCF(destIn, frameRate) )+'/0000\t'+str(secsToTCF(destOut, frameRate))+'/0000\t_'+
             '\t(Rem) NAME "'+edit['label']+'"\n';
-		projectTime = destOut;
+		projectTimeInSec = destOut;
 	});
 
 	edl+= '</EVENT_LIST>\n\n';
