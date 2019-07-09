@@ -85,3 +85,6 @@ typings/
 *.vtt
 *.ttml
 *.itt
+
+python-version/venv/
+python-version/__pycache__/
