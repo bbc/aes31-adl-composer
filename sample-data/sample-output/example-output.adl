@@ -2,7 +2,7 @@
 
 <VERSION>
 	(ADL_ID)	1234
-	(ADL_UID)	3ac83660-a26f-11e9-babf-a303f39c4c73
+	(ADL_UID)	9328d910-a272-11e9-9e0e-4bdf42eb1469
 	(VER_ADL_VERSION)	01.02
 	(VER_CREATOR)	"Digital Paper Edit"
 	(VER_CRTR)	00.01
@@ -11,7 +11,7 @@
 <PROJECT>
 	(PROJ_TITLE)	"Node Example"
 	(PROJ_ORIGINATOR)	"Digital Paper Edit"
-	(PROJ_CREATE_DATE)	2019-07-09T17:30:22.278Z
+	(PROJ_CREATE_DATE)	2019-07-09T17:54:19.041Z
 	(PROJ_NOTES)	"_"
 	(PROJ_CLIENT_DATA)	"test"
 </PROJECT>
@@ -28,7 +28,6 @@
 	(Index)	1	(F)	"URL:file://localhost/C:/Audio Files/filename1.wav"	BBCSPEECHEDITOR1	_	_	"_"	"_"
 	(Index)	2	(F)	"URL:file://localhost/C:/Audio Files/filename2.wav"	BBCSPEECHEDITOR2	_	_	"_"	"_"
 	(Index)	3	(F)	"URL:file://localhost/C:/Audio Files/filename3.wav"	BBCSPEECHEDITOR3	_	_	"_"	"_"
-	(Index)	4	(F)	"URL:file://localhost/C:/Audio Files/filename2.wav"	BBCSPEECHEDITOR4	_	_	"_"	"_"
 </SOURCE_INDEX>
 
 <EVENT_LIST>

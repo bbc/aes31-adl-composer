@@ -104,6 +104,8 @@ def generateEDL(edits, filePaths, fileNames, sampleRate, frameRate, projectName)
     '<SOURCE_INDEX>\n')
     index=1
     for path in filePaths:
+        print('fileNames[path]')
+        print(fileNames[path])
         edl=(edl+
         '\t(Index)\t'+str(index)+
         '\t(F)\t"URL:file://localhost/C:/Audio Files/'+fileNames[path]+'"\tBBCSPEECHEDITOR'+str(index)+'\t_\t_\t"_"\t"_"\n')
@@ -123,7 +125,9 @@ def generateEDL(edits, filePaths, fileNames, sampleRate, frameRate, projectName)
         srcLen=srcOut-srcIn
         destIn=projectTime
         destOut=projectTime+srcLen
-
+        print(filePaths)
+        print("filePaths.index(edit['path'])+1")
+        print(filePaths.index(edit['path'])+1)
         edl=(edl+
         '\t(Entry)\t'+str(index)+'\t'+
         '(Cut)\tI\t'+str(filePaths.index(edit['path'])+1)+'\t'+

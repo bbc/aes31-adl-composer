@@ -102,11 +102,13 @@ const generateEDL = ({
 	//     // especially this line?
 	//     '\t(F)\t"URL:file://localhost/C:/Audio Files/'+ edit.clipName +'"\tBBCSPEECHEDITOR'+str(index)+'\t_\t_\t"_"\t"_"\n';
 	// });
-	filePaths.forEach((path, i)=>{
+	[...filePaths].forEach((path, i)=>{
+		// const fileNamesArray = [...fileNames]; 
+		// const fileNamesArray = [...fileNames];
+		// console.log('fileNames',fileNames[path]);
 		const index = i+1;
-		edl+='\t(Index)\t'+str(index)+
-        // especially this line?
-        '\t(F)\t"URL:file://localhost/C:/Audio Files/'+ fileNames[path] +'"\tBBCSPEECHEDITOR'+str(index)+'\t_\t_\t"_"\t"_"\n';
+		edl+='\t(Index)\t'+str(index)+'\t(F)\t"URL:file://localhost/C:/Audio Files/'+ fileNames[path] +'"\tBBCSPEECHEDITOR'+str(index)+'\t_\t_\t"_"\t"_"\n';
+		
 	});
 	edl+='</SOURCE_INDEX>\n\n';
 
@@ -122,10 +124,11 @@ const generateEDL = ({
 		const srcLen=srcOut-srcIn;
 		const destIn = projectTimeInSec;
 		const destOut = projectTimeInSec + srcLen;
-
+		// console.log('filePaths',filePaths);
+		// console.log('filePaths.indexOf(edit[\'path\'])+1', [...filePaths].indexOf(edit['path'])+1);
 		edl+='\t(Entry)\t'+str(index)+'\t'+
 			// '(Cut)\tI\t'+str(edit.clipName)+'\t'+
-			'(Cut)\tI\t'+str(filePaths.indexOf(edit['path'])+1)+'\t'+
+			'(Cut)\tI\t'+str([...filePaths].indexOf(edit['path'])+1)+'\t'+
             '1~2\t1~2\t'+
             str(secsToTCF(srcIn, frameRate))+'/0000\t'+str(secsToTCF(destIn, frameRate) )+'/0000\t'+str(secsToTCF(destOut, frameRate))+'/0000\t_'+
             '\t(Rem) NAME "'+edit['label']+'"\n';
@@ -143,10 +146,10 @@ const generateEDL = ({
 };
 
 const getFileList = (edits) =>{
-	const filePaths = [];
+	const filePaths = new Set();
 	const fileNames = {};
 	edits.forEach((edit)=>{
-		filePaths.push(edit.path);
+		filePaths.add(edit['path']);
 		fileNames[edit.path] = edit.clipName;
 	});
 	return {filePaths, fileNames};
@@ -154,7 +157,7 @@ const getFileList = (edits) =>{
 
 const writeEDL = ({writePath, projectOriginator, edits, sampleRate, frameRate, projectName, includeAudio}) =>{
 	const {filePaths, fileNames} = getFileList(edits);
-	console.log(filePaths, fileNames);
+	// console.log(filePaths, fileNames);
 	const edl = generateEDL({edits, projectOriginator, filePaths, fileNames, sampleRate, frameRate, projectName});
 	if(includeAudio){
 		// TODO: see python code on how to include audio, zipping etc.. altho not needed for client side use
