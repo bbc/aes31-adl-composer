@@ -8,7 +8,7 @@ const result = generateEDL({
 	// https://en.wikipedia.org/wiki/Sampling_(signal_processing)#Sampling_rate
 	sampleRate: '44100',
 	frameRate: 25,
-	projectName: 'Test edit 1'
+	projectName: 'Node Example'
 });
 
 fs.writeFileSync('./sample-data/sample-output/example-output.adl', result);

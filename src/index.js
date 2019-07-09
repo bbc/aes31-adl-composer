@@ -90,6 +90,7 @@ const generateEDL = ({
 	/**
      * file locations
      * @todo: is this needed? I don't fully understand what this does
+	 * @todo: should probably be unique file path names
      */ 
 	edl+='<SOURCE_INDEX>\n';
 	edits.forEach((edit, i)=>{

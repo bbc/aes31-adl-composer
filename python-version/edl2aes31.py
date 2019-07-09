@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 ##
 # AES31 authoring tool
 #

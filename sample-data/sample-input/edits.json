@@ -3,12 +3,16 @@
         "start": 30,
         "end": 35,
         "clipName": "filename1.wav",
-        "label": "not sure what this is for?"
+        "filename": "filename1.wav",
+        "label": "Label1",
+        "path": "some/path/to/audio/file"
     },
     {
         "start": 36,
         "end": 37,
         "clipName": "filename2.wav",
-        "label": "not sure what this is for?"
+        "filename": "filename1.wav",
+        "label": "Label2",
+        "path": "some/path/to/audio/file2"
     }
 ]

@@ -1,0 +1,37 @@
+<ADL>
+
+<VERSION>
+	(ADL_ID)	1234
+	(ADL_UID)	315010ba-a25d-11e9-aa3e-784f43858ed7
+	(VER_ADL_VERSION)	01.02
+	(VER_CREATOR)	"BBC Speech Editor"
+	(VER_CRTR)	00.01
+</VERSION>
+
+<PROJECT>
+	(PROJ_TITLE)	"Python Example"
+	(PROJ_ORIGINATOR)	"BBC Speech Editor"
+	(PROJ_CREATE_DATE)	2019-07-09T15:21:15+00:00
+	(PROJ_NOTES)	"_"
+	(PROJ_CLIENT_DATA)	"test"
+</PROJECT>
+
+<SEQUENCE>
+	(SEQ_SAMPLE_RATE)	S44100
+	(SEQ_FRAME_RATE)	25
+	(SEQ_ADL_LEVEL)	1
+	(SEQ_CLEAN)	FALSE
+	(SEQ_DEST_START)	00:00:00:00/0000
+</SEQUENCE>
+
+<SOURCE_INDEX>
+	(Index)	1	(F)	"URL:file://localhost/C:/Audio Files/filename1.wav"	BBCSPEECHEDITOR1	_	_	"_"	"_"
+	(Index)	2	(F)	"URL:file://localhost/C:/Audio Files/filename1.wav"	BBCSPEECHEDITOR2	_	_	"_"	"_"
+</SOURCE_INDEX>
+
+<EVENT_LIST>
+	(Entry)	1	(Cut)	I	2	1~2	1~2	00:00:29:24/0000	00:00:00:00/0000	00:00:05:00/0000	_	(Rem) NAME "Label1"
+	(Entry)	2	(Cut)	I	1	1~2	1~2	00:00:35:24/0000	00:00:05:00/0000	00:00:06:00/0000	_	(Rem) NAME "Label2"
+</EVENT_LIST>
+
+</ADL>
