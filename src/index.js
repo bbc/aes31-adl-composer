@@ -37,6 +37,8 @@ const tcToSec = (tc) =>{
 const generateEDL = ({
 	projectOriginator,
 	edits,
+	filePaths,
+	fileNames,
 	sampleRate,
 	frameRate,
 	projectName
@@ -94,11 +96,17 @@ const generateEDL = ({
 	 * @todo: should probably be unique file path names
      */ 
 	edl+='<SOURCE_INDEX>\n';
-	edits.forEach((edit, i)=>{
+	// edits.forEach((edit, i)=>{
+	// 	const index = i+1;
+	// 	edl+='\t(Index)\t'+str(index)+
+	//     // especially this line?
+	//     '\t(F)\t"URL:file://localhost/C:/Audio Files/'+ edit.clipName +'"\tBBCSPEECHEDITOR'+str(index)+'\t_\t_\t"_"\t"_"\n';
+	// });
+	filePaths.forEach((path, i)=>{
 		const index = i+1;
 		edl+='\t(Index)\t'+str(index)+
         // especially this line?
-        '\t(F)\t"URL:file://localhost/C:/Audio Files/'+ edit.clipName +'"\tBBCSPEECHEDITOR'+str(index)+'\t_\t_\t"_"\t"_"\n';
+        '\t(F)\t"URL:file://localhost/C:/Audio Files/'+ fileNames[path] +'"\tBBCSPEECHEDITOR'+str(index)+'\t_\t_\t"_"\t"_"\n';
 	});
 	edl+='</SOURCE_INDEX>\n\n';
 
@@ -116,7 +124,8 @@ const generateEDL = ({
 		const destOut = projectTimeInSec + srcLen;
 
 		edl+='\t(Entry)\t'+str(index)+'\t'+
-            '(Cut)\tI\t'+str(edit.clipName)+'\t'+
+			// '(Cut)\tI\t'+str(edit.clipName)+'\t'+
+			'(Cut)\tI\t'+str(filePaths.indexOf(edit['path'])+1)+'\t'+
             '1~2\t1~2\t'+
             str(secsToTCF(srcIn, frameRate))+'/0000\t'+str(secsToTCF(destIn, frameRate) )+'/0000\t'+str(secsToTCF(destOut, frameRate))+'/0000\t_'+
             '\t(Rem) NAME "'+edit['label']+'"\n';
@@ -133,4 +142,30 @@ const generateEDL = ({
 	return edl;
 };
 
+const getFileList = (edits) =>{
+	const filePaths = [];
+	const fileNames = {};
+	edits.forEach((edit)=>{
+		filePaths.push(edit.path);
+		fileNames[edit.path] = edit.clipName;
+	});
+	return {filePaths, fileNames};
+};
+
+const writeEDL = ({writePath, projectOriginator, edits, sampleRate, frameRate, projectName, includeAudio}) =>{
+	const {filePaths, fileNames} = getFileList(edits);
+	console.log(filePaths, fileNames);
+	const edl = generateEDL({edits, projectOriginator, filePaths, fileNames, sampleRate, frameRate, projectName});
+	if(includeAudio){
+		// TODO: see python code on how to include audio, zipping etc.. altho not needed for client side use
+	}
+
+	return edl;
+
+};
+
+
 module.exports = generateEDL;
+
+module.exports.generateEDL = generateEDL;
+module.exports.writeEDL = writeEDL;
