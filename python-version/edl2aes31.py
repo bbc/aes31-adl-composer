@@ -123,11 +123,10 @@ def generateEDL(edits, filePaths, fileNames, sampleRate, frameRate, projectName)
         srcIn=secsToTCF(edit['start'],frameRate)
         srcOut=secsToTCF(edit['end'],frameRate)
         srcLen=srcOut-srcIn
+        # print('srcIn ',srcIn, 'srcOut ',srcOut, 'srcLen ',srcLen)
+        print('srcLen ', srcLen)
         destIn=projectTime
         destOut=projectTime+srcLen
-        print(filePaths)
-        print("filePaths.index(edit['path'])+1")
-        print(filePaths.index(edit['path'])+1)
         edl=(edl+
         '\t(Entry)\t'+str(index)+'\t'+
         '(Cut)\tI\t'+str(filePaths.index(edit['path'])+1)+'\t'+
