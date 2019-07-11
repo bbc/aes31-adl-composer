@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 ##
 # AES31 authoring tool
 #
@@ -103,6 +104,8 @@ def generateEDL(edits, filePaths, fileNames, sampleRate, frameRate, projectName)
     '<SOURCE_INDEX>\n')
     index=1
     for path in filePaths:
+        print('fileNames[path]')
+        print(fileNames[path])
         edl=(edl+
         '\t(Index)\t'+str(index)+
         '\t(F)\t"URL:file://localhost/C:/Audio Files/'+fileNames[path]+'"\tBBCSPEECHEDITOR'+str(index)+'\t_\t_\t"_"\t"_"\n')
@@ -120,9 +123,10 @@ def generateEDL(edits, filePaths, fileNames, sampleRate, frameRate, projectName)
         srcIn=secsToTCF(edit['start'],frameRate)
         srcOut=secsToTCF(edit['end'],frameRate)
         srcLen=srcOut-srcIn
+        # print('srcIn ',srcIn, 'srcOut ',srcOut, 'srcLen ',srcLen)
+        print('srcLen ', srcLen)
         destIn=projectTime
         destOut=projectTime+srcLen
-
         edl=(edl+
         '\t(Entry)\t'+str(index)+'\t'+
         '(Cut)\tI\t'+str(filePaths.index(edit['path'])+1)+'\t'+

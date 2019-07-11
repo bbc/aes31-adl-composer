@@ -13,7 +13,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "node-timecodes": "^2.5.0",
+    "moment": "^2.24.0",
+    "smpte-timecode": "^1.2.3",
     "uuid": "^3.3.2"
   },
   "devDependencies": {
