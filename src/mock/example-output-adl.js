@@ -1,0 +1,43 @@
+const adl = `<ADL>
+
+<VERSION>
+	(ADL_ID)	1234
+	(ADL_UID)	 ${expect.anything()}
+	(VER_ADL_VERSION)	01.02
+	(VER_CREATOR)	"Digital Paper Edit"
+	(VER_CRTR)	00.01
+</VERSION>
+
+<PROJECT>
+	(PROJ_TITLE)	"Node Example"
+	(PROJ_ORIGINATOR)	"Digital Paper Edit"
+	(PROJ_CREATE_DATE)	${expect.anything()}
+	(PROJ_NOTES)	"_"
+	(PROJ_CLIENT_DATA)	"test"
+</PROJECT>
+
+<SEQUENCE>
+	(SEQ_SAMPLE_RATE)	S44100
+	(SEQ_FRAME_RATE)	25
+	(SEQ_ADL_LEVEL)	1
+	(SEQ_CLEAN)	FALSE
+	(SEQ_DEST_START)	00:00:00:00/0000
+</SEQUENCE>
+
+<SOURCE_INDEX>
+	(Index)	1	(F)	"URL:file://localhost/C:/Audio Files/filename1.wav"	BBCSPEECHEDITOR1	_	_	"_"	"_"
+	(Index)	2	(F)	"URL:file://localhost/C:/Audio Files/filename2.wav"	BBCSPEECHEDITOR2	_	_	"_"	"_"
+	(Index)	3	(F)	"URL:file://localhost/C:/Audio Files/filename3.wav"	BBCSPEECHEDITOR3	_	_	"_"	"_"
+</SOURCE_INDEX>
+
+<EVENT_LIST>
+	(Entry)	1	(Cut)	I	1	1~2	1~2	00:00:09:24/0000	00:00:00:00/0000	00:00:10:00/0000	_	(Rem) NAME "Label1"
+	(Entry)	2	(Cut)	I	2	1~2	1~2	00:00:29:24/0000	00:00:10:00/0000	00:00:20:00/0000	_	(Rem) NAME "Label2"
+	(Entry)	3	(Cut)	I	3	1~2	1~2	00:00:49:24/0000	00:00:20:00/0000	00:00:30:00/0000	_	(Rem) NAME "Label3"
+	(Entry)	4	(Cut)	I	2	1~2	1~2	00:01:09:24/0000	00:00:30:00/0000	00:00:40:00/0000	_	(Rem) NAME "Label4"
+</EVENT_LIST>
+
+</ADL>
+`;
+
+module.exports = adl;
