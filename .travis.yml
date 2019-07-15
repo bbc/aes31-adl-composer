@@ -1,0 +1,21 @@
+os: linux
+language: node_js
+node_js: "8"
+sudo: required
+
+before_install:
+  - node --version
+  - npm i -g npm@5
+  - npm --version
+
+install:
+  - npm install
+
+
+script:
+  - npm run test:ci
+
+branches:
+  except:
+    - # Do not build tags that we create when we upload to GitHub Releases
+    - /^(?i:continuous)/
