@@ -11,12 +11,6 @@ const result = writeEDL({
 	projectName: 'Node Example'
 });
 
-
-
 fs.writeFileSync('./sample-data/sample-output/example-output.adl', result);
 console.log(result);
-
-
-// const expectedADLOutput = fs.readFileSync('./src/mock/example-output.adl',  'utf8').toString();
-// console.log(expectedADLOutput);
 
