@@ -185,10 +185,20 @@ const generateEDL = ({
 const getFileList = (edits) =>{
 	const filePaths = new Set();
 	const fileNames = {};
+	// if the edits don't have a path attribute
+	// use clipName as path
+	edits = edits.map((edit)=>{
+		if(!edit.path){
+			edit.path = edit.clipName;
+		}
+		return edit;
+	});
+
 	edits.forEach((edit)=>{
-		filePaths.add(edit['path']);
+		filePaths.add(edit.path);
 		fileNames[edit.path] = edit.clipName;
 	});
+	
 	return {filePaths, fileNames};
 };
 

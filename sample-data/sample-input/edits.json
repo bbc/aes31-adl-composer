@@ -3,31 +3,23 @@
         "start": 10,
         "end": 20,
         "clipName": "filename1.wav",
-        "filename": "filename1.wav",
-        "label": "Label1",
-        "path": "some/path/to/audio/file"
+        "label": "Label1"
     },
     {
         "start": 30,
         "end": 40,
         "clipName": "filename2.wav",
-        "filename": "filename2.wav",
-        "label": "Label2",
-        "path": "some/path/to/audio/file2"
+        "label": "Label2"
     },{
         "start": 50,
         "end": 60,
         "clipName": "filename3.wav",
-        "filename": "filename3.wav",
-        "label": "Label3",
-        "path": "some/path/to/audio/file3"
+        "label": "Label3"
     },
     {
         "start": 70,
         "end": 80,
         "clipName": "filename2.wav",
-        "filename": "filename2.wav",
-        "label": "Label4",
-        "path": "some/path/to/audio/file2"
+        "label": "Label4"
     }
 ]
