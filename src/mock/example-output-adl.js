@@ -2,7 +2,7 @@ const adl = `<ADL>
 
 <VERSION>
 	(ADL_ID)	1234
-	(ADL_UID)	 ${expect.anything()}
+	(ADL_UID)\t${'d5edc550-a707-11e9-aa11-d78f5cf5aad5'}
 	(VER_ADL_VERSION)	01.02
 	(VER_CREATOR)	"Digital Paper Edit"
 	(VER_CRTR)	00.01
@@ -11,7 +11,7 @@ const adl = `<ADL>
 <PROJECT>
 	(PROJ_TITLE)	"Node Example"
 	(PROJ_ORIGINATOR)	"Digital Paper Edit"
-	(PROJ_CREATE_DATE)	${expect.anything()}
+	(PROJ_CREATE_DATE)\t${'2019-07-15T14:52:50+01:00'}
 	(PROJ_NOTES)	"_"
 	(PROJ_CLIENT_DATA)	"test"
 </PROJECT>

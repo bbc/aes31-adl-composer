@@ -17,10 +17,13 @@ describe('ADL Output testing', () => {
 		});
 		expect(result).toBeDefined();
 	});
-	test('Testing output', () => {
+    
+	it('Testing output', () => {
 		const result = writeEDL({
 			projectOriginator: 'Digital Paper Edit',
 			edits: sampleEdits,
+			adlUid: 'd5edc550-a707-11e9-aa11-d78f5cf5aad5',
+			projectCreatedDate:'2019-07-15T14:52:50+01:00',
 			// https://en.wikipedia.org/wiki/Sampling_(signal_processing)#Sampling_rate
 			sampleRate: '44100',
 			frameRate: 25,
