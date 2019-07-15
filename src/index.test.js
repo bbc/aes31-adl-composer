@@ -10,7 +10,6 @@ describe('ADL Output testing', () => {
 		const result = writeEDL({
 			projectOriginator: 'Digital Paper Edit',
 			edits: sampleEdits,
-			// https://en.wikipedia.org/wiki/Sampling_(signal_processing)#Sampling_rate
 			sampleRate: '44100',
 			frameRate: 25,
 			projectName: 'Node Example'
@@ -24,7 +23,6 @@ describe('ADL Output testing', () => {
 			edits: sampleEdits,
 			adlUid: 'd5edc550-a707-11e9-aa11-d78f5cf5aad5',
 			projectCreatedDate:'2019-07-15T14:52:50+01:00',
-			// https://en.wikipedia.org/wiki/Sampling_(signal_processing)#Sampling_rate
 			sampleRate: '44100',
 			frameRate: 25,
 			projectName: 'Node Example'
