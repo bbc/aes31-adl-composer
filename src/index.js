@@ -85,16 +85,16 @@ const deepCopyTimecode = (timecode, frameRate, isDropFrame)=>{
 
 
 const generateEDL = ({
-	projectOriginator,
+	projectOriginator = 'Default Unspecified Project Originator',
 	edits,
 	filePaths,
 	fileNames,
 	sampleRate,
 	frameRate,
-	projectName
+	projectName,
+	adlUid = uuid1(),
+	projectCreatedDate =  getCurrentTime()
 }) => {
-
-	const generatorName = projectOriginator ? projectOriginator : 'Default Unspecified Project Originator';
 	const  generatorVersion='00.01';
 	let  projectTime= new Timecode('00:00:00:00');
 	let   edl='';
@@ -111,9 +111,9 @@ const generateEDL = ({
      */
 	edl += '<VERSION>\n'+
     '\t(ADL_ID)\t'+adlId+'\n'+
-    '\t(ADL_UID)\t'+str(uuid1())+'\n'+
+    '\t(ADL_UID)\t'+adlUid+'\n'+
     '\t(VER_ADL_VERSION)\t'+verAdlVersion+'\n'+
-    '\t(VER_CREATOR)\t"'+generatorName+'"\n'+
+    '\t(VER_CREATOR)\t"'+projectOriginator+'"\n'+
     '\t(VER_CRTR)\t'+generatorVersion+'\n'+
     '</VERSION>\n\n';
 
@@ -122,8 +122,8 @@ const generateEDL = ({
      */
 	edl += '<PROJECT>\n'+
     '\t(PROJ_TITLE)\t"'+projectName+'"\n'+
-    '\t(PROJ_ORIGINATOR)\t"'+generatorName+'"\n'+
-    '\t(PROJ_CREATE_DATE)\t'+getCurrentTime()+'\n'+
+    '\t(PROJ_ORIGINATOR)\t"'+projectOriginator+'"\n'+
+    '\t(PROJ_CREATE_DATE)\t'+projectCreatedDate+'\n'+
     '\t(PROJ_NOTES)\t"_"\n'+
     '\t(PROJ_CLIENT_DATA)\t"test"\n'+
     '</PROJECT>\n\n';
@@ -192,9 +192,9 @@ const getFileList = (edits) =>{
 	return {filePaths, fileNames};
 };
 
-const writeEDL = ({ projectOriginator, edits, sampleRate, frameRate, projectName}) =>{
+const writeEDL = ({ projectOriginator, edits, sampleRate, frameRate, projectName, adlUid, projectCreatedDate}) =>{
 	const {filePaths, fileNames} = getFileList(edits);
-	const edl = generateEDL({edits, projectOriginator, filePaths, fileNames, sampleRate, frameRate, projectName});
+	const edl = generateEDL({edits, projectOriginator, filePaths, fileNames, sampleRate, frameRate, projectName, adlUid, projectCreatedDate});
 	
 	// NOTE: in the python version the audio is included in the ADL via zipping etc.. altho not needed for client side use
 	// SADiE will use the audio present in the workspace if not provided with the file
