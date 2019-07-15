@@ -1,19 +1,23 @@
-os: linux
+# os: linux
+dist: trusty
 language: node_js
-node_js: "8"
+node_js: "10"
 sudo: required
 
 before_install:
   - node --version
-  - npm i -g npm@5
+  - npm i -g npm@6.1.0
   - npm --version
 
 install:
   - npm install
 
+cache:
+  npm: true
+  node: true
 
 script:
-  - npm run test:ci
+  - npm run jest:ci
 
 branches:
   except:
