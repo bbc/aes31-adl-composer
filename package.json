@@ -6,6 +6,7 @@
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",
+    "jest:ci": "jest --ci",
     "lint": "npx eslint --ignore-path .eslintignore .",
     "lint:fix": "eslint --ignore-path .eslintignore . --fix",
     "publish:public": "npm publish --access public",
