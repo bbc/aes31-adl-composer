@@ -30,7 +30,7 @@ require or import in your code and see example usage for more details
 ## System Architecture
 <!-- _High level overview of system architecture_ -->
 
-Originally converted from Chris Baume python code, see [`python-version/edl2aes31.py`](./ython-version/edl2aes31.py)
+Originally converted from Chris Baume python code, see [`python-version/edl2aes31.py`](./python-version/edl2aes31.py)
 
 ## Development env
  <!-- _How to run the development environment_
