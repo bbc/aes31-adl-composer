@@ -3,6 +3,7 @@
   "version": "1.0.1",
   "description": "A node module to convert a json sequence into an AES31 ADL (audio decision list) compatible with SADiE audio editing software.",
   "main": "src/index.js",
+  "type": "module",
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",

@@ -1,4 +1,3 @@
-const fs = require('fs');
 const writeEDL = require('./index.js');
 const sampleEdits = require('../sample-data/sample-input/edits.json');
 
