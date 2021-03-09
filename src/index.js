@@ -5,14 +5,6 @@ const Timecode = require('smpte-timecode');
 const uuid1 = require('uuid/v1');
 const moment = require('moment');
 /**
- * helper function to convert a set to an array
- * @param {*} set - a js Set - data structure object
- */
-const convertSetToArray = (set) => {
-	return [...set];
-};
-
-/**
  * get time in ISO format
  */
 const getCurrentTime = () => {
@@ -126,7 +118,7 @@ const generateSource = (index, filePath, fileName, uuid) => {
 const generateSourceIndex = (filePaths, fileNames) => {
 	const defaultFullPath = 'localhost/C:/Audio Files';
 	const defaultSourceUUID = 'BBCSPEECHEDITOR';
-	const tracks = convertSetToArray(filePaths).map((path, i) => {
+	const tracks = filePaths.map((path, i) => {
 		const index = i + 1;
 		const uuid = `${defaultSourceUUID}${index}`;
 		return generateSource(index, defaultFullPath, fileNames[path], uuid);
@@ -159,10 +151,11 @@ const generateEventList = (edits, frameRate, filePaths) => {
 		const destOut = deepCopyTimecode(projectTime, frameRate, false).add(srcOut.subtract(srcIn));
 
 		projectTime = destOut;
+		const path = edit.path ? edit.path: edit.clipName;
 
 		return generateEvent(
 			index + 1,
-			convertSetToArray(filePaths).indexOf(edit['path']) + 1,
+			filePaths.indexOf(path) + 1,
 			timecodeToStringWithSampleCount(srcIn),
 			timecodeToStringWithSampleCount(destIn),
 			timecodeToStringWithSampleCount(destOut),
@@ -218,25 +211,15 @@ ${eventList}
 	return adl;
 };
 
-const updateEditPaths = (edits) => {
-	const updatedEdits = [...edits];
-	return updatedEdits.map(edit => {
-		if (!edit.path) {
-			edit.path = edit.clipName;
-		}
-		return edit;
-	});
-};
 
 const getFileList = (edits) => {
-	const updatedEdits = updateEditPaths(edits);
-	const filePaths = new Set(updatedEdits.map(edit => edit.path));
-	const fileNames = updatedEdits.reduce((res, edit) => {
-		res[edit.path] = edit.clipName;
+	const fileNames = edits.reduce((res, edit) => {
+		const path = edit.path ? edit.path : edit.clipName;
+		res[path] = edit.clipName;
 		return res;
 	}, {});
-
-	return { filePaths, fileNames, updatedEdits };
+	const filePaths = Object.keys(fileNames);
+	return { filePaths, fileNames };
 };
 
 const writeEDL = ({
@@ -248,9 +231,9 @@ const writeEDL = ({
 	adlUid,
 	projectCreatedDate,
 }) => {
-	const { filePaths, fileNames, updatedEdits } = getFileList(edits);
+	const { filePaths, fileNames } = getFileList(edits);
 	const edl = generateEDL({
-		edits: updatedEdits,
+		edits,
 		projectOriginator,
 		filePaths,
 		fileNames,
