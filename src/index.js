@@ -111,17 +111,15 @@ const generateSequence = (sampleRate, frameRate) => {
 </SEQUENCE>`;
 };
 
-const generateSource = (index, filePath, fileName, uuid) => {
-	return `	(Index)	${index}	(F)	"URL:file://${filePath}/${fileName}"	${uuid}	_	_	"_"	"_"`;
+const generateSource = (index, fullPath, uuid) => {
+	return `	(Index)	${index}	(F)	"URL:file://${fullPath}"	${uuid}	_	_	"_"	"_"`;
 };
 
-const generateSourceIndex = (filePaths, fileNames) => {
-	const defaultFullPath = 'localhost/C:/Audio Files';
-	const defaultSourceUUID = 'BBCSPEECHEDITOR';
-	const tracks = filePaths.map((path, i) => {
+const generateSourceIndex = (filePaths) => {
+	const tracks = Object.entries(filePaths).map((entry, i) => {
+		const [fullPath, uuid] = entry;
 		const index = i + 1;
-		const uuid = `${defaultSourceUUID}${index}`;
-		return generateSource(index, defaultFullPath, fileNames[path], uuid);
+		return generateSource(index, fullPath, uuid);
 	});
 
 	return `
@@ -151,11 +149,10 @@ const generateEventList = (edits, frameRate, filePaths) => {
 		const destOut = deepCopyTimecode(projectTime, frameRate, false).add(srcOut.subtract(srcIn));
 
 		projectTime = destOut;
-		const path = edit.path ? edit.path: edit.clipName;
 
 		return generateEvent(
 			index + 1,
-			filePaths.indexOf(path) + 1,
+			Object.keys(filePaths).indexOf(edit.fullPath) + 1,
 			timecodeToStringWithSampleCount(srcIn),
 			timecodeToStringWithSampleCount(destIn),
 			timecodeToStringWithSampleCount(destOut),
@@ -174,7 +171,6 @@ const generateEDL = ({
 	projectOriginator = 'Default Unspecified Project Originator',
 	edits,
 	filePaths,
-	fileNames,
 	sampleRate,
 	frameRate,
 	projectName,
@@ -198,7 +194,7 @@ const generateEDL = ({
 		projectCreatedDate
 	);
 	const sequence = generateSequence(sampleRate, frameRate);
-	const sourceIndex = generateSourceIndex(filePaths, fileNames);
+	const sourceIndex = generateSourceIndex(filePaths);
 	const eventList = generateEventList(edits, frameRate, filePaths);
 	const adl = `<ADL>
 ${version}
@@ -211,15 +207,41 @@ ${eventList}
 	return adl;
 };
 
-
-const getFileList = (edits) => {
-	const fileNames = edits.reduce((res, edit) => {
-		const path = edit.path ? edit.path : edit.clipName;
-		res[path] = edit.clipName;
+const validateEdits = (edits) => {
+	edits.reduce((res, edit) => {
+		const fullPath = edit.fullPath;
+		const uuid = edit.uuid; 
+		if (res.fullPath[fullPath]) {
+			const expected = res.fullPath[fullPath];
+			if (!expected === uuid) {
+				throw ReferenceError(`Clip at path ${fullPath} should have uuid ${expected} but saw ${uuid}`);
+			}
+		} else {
+			res.fullPath[fullPath] = uuid;
+		}
 		return res;
-	}, {});
-	const filePaths = Object.keys(fileNames);
-	return { filePaths, fileNames };
+	}, {fullPath: {}});
+};
+
+
+const fillEdits = (edits) => {
+	const filledEdits = [...edits];
+	const uuids = {};
+	let index = 1;
+	filledEdits.map(edit => {
+		edit.path = edit.path ? edit.path : 'localhost/C:/Audio Files';
+		edit.fullPath = `${edit.path}/${edit.clipName}`;
+
+		if (!edit.uuid) {
+			if (uuids[edit.fullPath]) {
+				edit.uuid = uuids[edit.fullPath];
+			} else {
+				edit.uuid = `BBCSPEECHEDITOR${index}`;
+				index += 1;
+			}
+		}
+	});
+	return filledEdits;
 };
 
 const writeEDL = ({
@@ -231,12 +253,19 @@ const writeEDL = ({
 	adlUid,
 	projectCreatedDate,
 }) => {
-	const { filePaths, fileNames } = getFileList(edits);
+	const filledEdits = fillEdits(edits);
+	validateEdits(filledEdits);
+
+	const filePaths = filledEdits.reduce((res, edit) => {
+		if (!res[edit.fullPath]) {
+			res[edit.fullPath] = edit.uuid;
+		}
+		return res;
+	}, {});
 	const edl = generateEDL({
-		edits,
+		edits: filledEdits,
 		projectOriginator,
 		filePaths,
-		fileNames,
 		sampleRate,
 		frameRate,
 		projectName,

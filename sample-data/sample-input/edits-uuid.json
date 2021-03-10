@@ -1,0 +1,43 @@
+[
+  {
+    "start": 10,
+    "end": 20,
+    "clipName": "filename0.wav",
+    "path": "localhost/C:/Video Files"
+  },
+  {
+    "start": 20,
+    "end": 30,
+    "clipName": "filename1.wav",
+    "uuid": "uuid1",
+    "label": "Label1",
+    "path": "localhost/D:/Video Files"
+  },
+  {
+    "start": 30,
+    "end": 40,
+    "clipName": "filename2.wav",
+    "uuid": "uuid2",
+    "label": "Label2"
+  },
+  {
+    "start": 50,
+    "end": 60,
+    "clipName": "filename3.wav",
+    "uuid": "uuid3",
+    "label": "Label3"
+  },
+  {
+    "start": 70,
+    "end": 80,
+    "clipName": "filename2.wav",
+    "uuid": "uuid2",
+    "label": "Label2"
+  },
+  {
+    "start": 70,
+    "end": 80,
+    "clipName": "filename4.wav",
+    "label": "Label4"
+  }
+]
